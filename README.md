@@ -2,6 +2,8 @@
 
 *The world is waiting — tell it where you're going, in your own words.*
 
+**Live demo:** https://holiday-planner-ai-8jfa.onrender.com (Render free tier — first load after idle takes ~1 minute)
+
 An open-source AI travel planner that turns a natural-language trip request
 into a practical plan — flight suggestions, hotel ideas matched to your
 vibe, and a day-by-day itinerary — built as a **multi-agent LangGraph
