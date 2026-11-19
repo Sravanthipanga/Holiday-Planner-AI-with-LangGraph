@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your {{ plan.brief.destination }} plan — Holiday Planner AI with LangGraph</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header class="plan-hero">
+    <img class="plan-hero-art" src="/static/img/art-1.jpg" alt="A traveler pointing at a globe, dreaming up the journey ahead">
+    <div class="plan-hero-text">
+      <p class="kicker">Your holiday, planned by the crew</p>
+      <h1>{{ plan.brief.origin }} → {{ plan.brief.destination }}</h1>
+      <p class="lede">{{ plan.brief.start_date }} to {{ plan.brief.end_date }} ·
+        {{ plan.brief.days }} days · {{ plan.brief.travelers }} traveler(s) ·
+        vibe: <strong>{{ plan.brief.vibe }}</strong></p>
+      <p class="request-echo">“{{ plan.request }}”</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="cards-row">
+      <article class="card flight-card">
+        <h2>✈️ Flight pick</h2>
+        <p class="big">{{ plan.flight_pick.airline }} {{ plan.flight_pick.flight_no }}</p>
+        <p>{{ plan.flight_pick.origin_iata }} → {{ plan.flight_pick.destination_iata }} ·
+           {{ plan.flight_pick.depart[11:16] }} → {{ plan.flight_pick.arrive[11:16] }}
+           ({{ plan.flight_pick.arrive[:10] }})</p>
+        <p>{{ plan.flight_pick.duration_min // 60 }}h {{ "%02d" % (plan.flight_pick.duration_min % 60) }}m ·
+           {{ plan.flight_pick.stops }} stop(s) · {{ plan.flight_pick.tier }}</p>
+        <p class="price">${{ "%.0f"|format(plan.flight_pick.price_usd) }} per person</p>
+        <details><summary>Alternates</summary>
+          <ul>
+          {% for f in plan.flight_alternates %}
+            <li>{{ f.airline }} {{ f.flight_no }} — {{ f.depart[11:16] }} → {{ f.arrive[11:16] }},
+                {{ f.stops }} stop(s), ${{ "%.0f"|format(f.price_usd) }}</li>
+          {% endfor %}
+          </ul>
+        </details>
+      </article>
+
+      <article class="card hotel-card">
+        <h2>🏨 Hotel pick</h2>
+        <p class="big">{{ plan.hotel_pick.name }}</p>
+        <p>{{ plan.hotel_pick.neighborhood }} · {{ plan.hotel_pick.stars }}★ ·
+           rated {{ plan.hotel_pick.rating }}/10 · {{ plan.hotel_pick.tier }}</p>
+        <p class="blurb">{{ plan.hotel_pick.blurb }}</p>
+        <p class="price">${{ "%.0f"|format(plan.hotel_pick.nightly_usd) }} per night</p>
+        <details><summary>Alternates</summary>
+          <ul>
+          {% for h in plan.hotel_alternates %}
+            <li>{{ h.name }} — {{ h.neighborhood }}, {{ h.rating }}/10,
+                ${{ "%.0f"|format(h.nightly_usd) }}/night</li>
+          {% endfor %}
+          </ul>
+        </details>
+      </article>
+
+      <article class="card budget-card">
+        <h2>💰 Budget</h2>
+        <ul class="budget-lines">
+          <li><span>Flights × {{ plan.brief.travelers }}</span><strong>${{ "%.0f"|format(plan.budget.flights_total) }}</strong></li>
+          <li><span>Hotel × {{ plan.brief.nights }} nights</span><strong>${{ "%.0f"|format(plan.budget.hotel_total) }}</strong></li>
+          <li><span>Activities &amp; food</span><strong>${{ "%.0f"|format(plan.budget.activities_total) }}</strong></li>
+          <li class="total"><span>Total</span><strong>${{ "%.0f"|format(plan.budget.grand_total) }}</strong></li>
+        </ul>
+        {% if plan.budget.budget_usd %}
+        {% set pct = [100, (plan.budget.grand_total / plan.budget.budget_usd * 100)]|min %}
+        <div class="meter"><div class="meter-fill {% if plan.budget.status == 'over_budget_flagged' %}over{% endif %}" style="width: {{ pct }}%"></div></div>
+        <p class="budget-status">
+          {% if plan.budget.status == 'ok' %}✅ Within your ${{ "%.0f"|format(plan.budget.budget_usd) }} budget
+          {% if plan.budget.revisions %} after {{ plan.budget.revisions }} guardian revision(s){% endif %}.
+          {% else %}⚠️ Over your ${{ "%.0f"|format(plan.budget.budget_usd) }} budget even after
+          {{ plan.budget.revisions }} revisions — flagged honestly, numbers untouched.{% endif %}
+        </p>
+        {% else %}
+        <p class="budget-status">No budget was stated, so the guardian simply added things up.</p>
+        {% endif %}
+      </article>
+    </section>
+
+    <section class="days">
+      <h2>Day by day</h2>
+      <div class="day-grid">
+      {% for d in plan.days %}
+        <article class="day-card">
+          <p class="day-num">Day {{ d.day_number }} · {{ d.date }}</p>
+          <h3>{{ d.title }}</h3>
+          {% if d.morning %}<p><span class="slot">Morning</span> {{ d.morning }}</p>{% endif %}
+          {% if d.afternoon %}<p><span class="slot">Afternoon</span> {{ d.afternoon }}</p>{% endif %}
+          {% if d.evening %}<p><span class="slot">Evening</span> {{ d.evening }}</p>{% endif %}
+          <p class="day-spend">Est. spend ${{ "%.0f"|format(d.est_spend_usd) }} · {{ d.paid_activities }} paid experience(s)</p>
+        </article>
+      {% endfor %}
+      </div>
+    </section>
+
+    <section class="notes">
+      <h2>How this plan was made</h2>
+      <ul>
+      {% for n in plan.notes %}<li>{{ n }}</li>{% endfor %}
+      </ul>
+      <p class="thread">Trip ID: <code>{{ plan.thread_id }}</code> ·
+        fetch it any time at <code>/api/trips/{{ plan.thread_id }}</code></p>
+      <p><a class="cta small" href="/">← Plan another holiday</a></p>
+    </section>
+  </main>
+</body>
+</html>

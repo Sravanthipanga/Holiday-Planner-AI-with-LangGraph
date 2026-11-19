@@ -1,0 +1,42 @@
+[
+  {
+    "request": "Plan a 5-day foodie trip from Chicago to Paris next month, budget $2,500 for 2 people",
+    "expect": {"destination_iata": "CDG", "origin_iata": "ORD", "days": 5, "travelers": 2, "budget_usd": 2500, "vibe": "foodie"}
+  },
+  {
+    "request": "A relaxing beach long weekend in Bali under $2,000, just me",
+    "expect": {"destination_iata": "DPS", "days": 4, "travelers": 1, "budget_usd": 2000, "vibe": "beach"}
+  },
+  {
+    "request": "Business trip to New York from June 3 to June 7 for a conference",
+    "expect": {"destination_iata": "JFK", "days": 5, "travelers": 2, "budget_usd": null, "vibe": "business", "start_month": 6}
+  },
+  {
+    "request": "Trip to Tokyo in June for 4 people, a week of adventure, around $6,000",
+    "expect": {"destination_iata": "HND", "days": 7, "travelers": 4, "budget_usd": 6000, "vibe": "adventure", "start_month": 6}
+  },
+  {
+    "request": "Romantic honeymoon in Rome, 6 days, under $3,000",
+    "expect": {"destination_iata": "FCO", "days": 6, "travelers": 2, "budget_usd": 3000, "vibe": "culture"}
+  },
+  {
+    "request": "Solo adventure in Sydney for 10 days",
+    "expect": {"destination_iata": "SYD", "days": 10, "travelers": 1, "budget_usd": null, "vibe": "adventure"}
+  },
+  {
+    "request": "Weekend getaway to Miami from Chicago",
+    "expect": {"destination_iata": "MIA", "origin_iata": "ORD", "days": 3, "travelers": 2, "budget_usd": null, "vibe": "culture"}
+  },
+  {
+    "request": "London museums and history trip, 4 days, $1,800 for 2",
+    "expect": {"destination_iata": "LHR", "days": 4, "travelers": 2, "budget_usd": 1800, "vibe": "culture"}
+  },
+  {
+    "request": "Dubai spa and relax escape, 5 days, for 2",
+    "expect": {"destination_iata": "DXB", "days": 5, "travelers": 2, "budget_usd": null, "vibe": "relax"}
+  },
+  {
+    "request": "Foodie weekend in Amsterdam",
+    "expect": {"destination_iata": "AMS", "days": 3, "travelers": 2, "budget_usd": null, "vibe": "foodie"}
+  }
+]

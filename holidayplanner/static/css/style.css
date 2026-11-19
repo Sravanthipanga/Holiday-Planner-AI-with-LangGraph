@@ -1,0 +1,154 @@
+/* Holiday Planner AI with LangGraph — travel-journal theme drawn from the project artwork.
+   Cream paper #faf5ea, deep navy ink #16324f, mustard gold #e3a72f. */
+
+:root {
+  --paper: #faf5ea;
+  --ink: #16324f;
+  --gold: #e3a72f;
+  --gold-soft: #f3d489;
+  --card: #fffdf6;
+  --line: #e4d9c3;
+  --muted: #5b6b7c;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  background-image: radial-gradient(#e9dfc8 0.6px, transparent 0.6px);
+  background-size: 22px 22px;
+  color: var(--ink);
+  font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif;
+  line-height: 1.55;
+}
+
+h1, h2, h3, .motto {
+  font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+  letter-spacing: 0.01em;
+}
+
+main { max-width: 1080px; margin: 0 auto; padding: 0 20px 40px; }
+
+/* ---------- hero ---------- */
+.hero {
+  max-width: 1080px; margin: 0 auto; padding: 36px 20px 8px;
+  display: grid; grid-template-columns: 1.05fr 1fr; gap: 28px; align-items: center;
+}
+.kicker { text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.78rem; color: var(--muted); margin: 0 0 6px; }
+.hero h1 { font-size: 3rem; margin: 0 0 10px; line-height: 1.08; }
+.hero h1 .gold { color: var(--gold); }
+.lede { font-size: 1.08rem; margin: 0 0 10px; }
+.motto { color: var(--gold); font-size: 1.15rem; margin: 6px 0 0; }
+.hero-art { margin: 0; transform: rotate(1.2deg); }
+.hero-art img, .gallery-grid img {
+  width: 100%; border-radius: 10px; border: 6px solid #fff;
+  box-shadow: 0 10px 28px rgba(22, 50, 79, 0.25); display: block;
+}
+
+/* ---------- planner form ---------- */
+.planner-card {
+  background: var(--card); border: 1.5px dashed var(--gold);
+  border-radius: 14px; padding: 22px 24px; margin-top: 26px;
+  box-shadow: 0 4px 14px rgba(22, 50, 79, 0.08);
+}
+.planner-card h2 { margin-top: 0; }
+.planner-card label { font-weight: 600; display: block; margin-bottom: 6px; }
+textarea {
+  width: 100%; border: 1.5px solid var(--line); border-radius: 10px;
+  padding: 12px; font: inherit; background: #fff; color: var(--ink); resize: vertical;
+}
+textarea:focus { outline: 2px solid var(--gold-soft); border-color: var(--gold); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }
+.chip {
+  border: 1px solid var(--gold); background: #fff8e6; color: var(--ink);
+  border-radius: 999px; padding: 6px 12px; font-size: 0.83rem; cursor: pointer;
+  max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.chip:hover { background: var(--gold-soft); }
+.cta {
+  background: var(--gold); color: var(--ink); border: none; border-radius: 999px;
+  padding: 12px 26px; font-size: 1rem; font-weight: 700; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  box-shadow: 0 3px 0 #b9821e;
+}
+.cta:hover { filter: brightness(1.05); }
+.cta.small { padding: 8px 18px; font-size: 0.9rem; }
+
+/* ---------- crew ---------- */
+.how { margin-top: 40px; }
+.crew { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
+.agent {
+  background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+  padding: 14px; text-align: center;
+}
+.agent-emoji { font-size: 1.7rem; }
+.agent h3 { margin: 6px 0 4px; font-size: 1.02rem; }
+.agent p { margin: 0; font-size: 0.86rem; color: var(--muted); }
+
+/* ---------- gallery ---------- */
+.gallery { margin-top: 44px; text-align: center; }
+.gallery-sub { color: var(--muted); margin-top: -6px; }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 16px; }
+.gallery-grid figure { margin: 0; }
+.gallery-grid figure:nth-child(1) { transform: rotate(-1deg); }
+.gallery-grid figure:nth-child(3) { transform: rotate(1deg); }
+.gallery-grid figcaption {
+  font-family: "Segoe Print", "Bradley Hand", cursive; margin-top: 8px; color: var(--ink);
+}
+
+footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 10px 20px 34px; }
+
+/* ---------- plan page ---------- */
+.plan-hero {
+  max-width: 1080px; margin: 0 auto; padding: 28px 20px 4px;
+  display: grid; grid-template-columns: 340px 1fr; gap: 26px; align-items: center;
+}
+.plan-hero-art {
+  width: 100%; border-radius: 10px; border: 6px solid #fff;
+  box-shadow: 0 10px 28px rgba(22, 50, 79, 0.25); transform: rotate(-1.2deg);
+}
+.plan-hero h1 { font-size: 2.3rem; margin: 0 0 8px; }
+.request-echo { color: var(--muted); font-style: italic; }
+
+.cards-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 22px; }
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 18px 20px; box-shadow: 0 4px 12px rgba(22, 50, 79, 0.06);
+}
+.card h2 { margin-top: 0; font-size: 1.25rem; }
+.card .big { font-size: 1.2rem; font-weight: 700; margin: 4px 0; }
+.card .price { font-size: 1.3rem; font-weight: 800; color: var(--gold); margin: 8px 0 0; }
+.card .blurb { color: var(--muted); }
+.card details { margin-top: 10px; font-size: 0.9rem; }
+.card summary { cursor: pointer; font-weight: 600; }
+
+.budget-lines { list-style: none; margin: 0; padding: 0; }
+.budget-lines li { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px dotted var(--line); }
+.budget-lines li.total { border-bottom: none; font-size: 1.1rem; }
+.meter { height: 14px; background: #efe6cf; border-radius: 999px; margin: 14px 0 8px; overflow: hidden; }
+.meter-fill { height: 100%; background: var(--gold); border-radius: 999px; }
+.meter-fill.over { background: #c0452f; }
+.budget-status { font-size: 0.92rem; margin: 4px 0 0; }
+
+.days { margin-top: 34px; }
+.day-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.day-card {
+  background: var(--card); border: 1px solid var(--line); border-top: 5px solid var(--gold);
+  border-radius: 12px; padding: 16px 18px;
+}
+.day-num { margin: 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.day-card h3 { margin: 4px 0 10px; }
+.slot {
+  display: inline-block; background: var(--gold-soft); border-radius: 6px;
+  padding: 0 7px; font-size: 0.75rem; font-weight: 700; margin-right: 6px;
+}
+.day-spend { color: var(--muted); font-size: 0.85rem; margin-bottom: 0; }
+
+.notes { margin-top: 34px; background: var(--card); border: 1px dashed var(--gold); border-radius: 14px; padding: 18px 22px; }
+.notes .thread { color: var(--muted); font-size: 0.88rem; }
+
+@media (max-width: 760px) {
+  .hero, .plan-hero { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.3rem; }
+}

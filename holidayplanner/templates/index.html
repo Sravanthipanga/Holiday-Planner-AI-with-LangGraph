@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Holiday Planner AI with LangGraph — the world is waiting</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-text">
+      <p class="kicker">Holiday Planner AI with LangGraph ✈ a multi-agent travel studio</p>
+      <h1>The world is<br><span class="gold">waiting.</span></h1>
+      <p class="lede">Tell a crew of AI agents where your heart is pointing.
+        They scout flights, hunt down hotels that fit your vibe, weave a
+        day-by-day itinerary, and guard your budget — then hand you one
+        beautiful plan.</p>
+      <p class="motto">“Collect moments, not things.”</p>
+    </div>
+    <figure class="hero-art">
+      <img src="/static/img/art-3.jpg" alt="Hand-drawn globe ringed with landmarks — Paris, London, Rome, Sydney — under the words 'The world is waiting'">
+    </figure>
+  </header>
+
+  <main>
+    <section class="planner-card">
+      <h2>Where to next?</h2>
+      <form action="/plan" method="post">
+        <label for="trip_request">Describe your trip in your own words</label>
+        <textarea id="trip_request" name="trip_request" rows="3" required
+          placeholder="e.g. Plan a 5-day foodie trip from Chicago to Paris next month, budget $2,500 for 2 people"></textarea>
+        <div class="chips">
+          {% for s in samples %}
+          <button type="button" class="chip" onclick="fillSample(this)">{{ s }}</button>
+          {% endfor %}
+        </div>
+        <button class="cta" type="submit">Plan my holiday →</button>
+      </form>
+    </section>
+
+    <section class="how">
+      <h2>Meet the crew</h2>
+      <div class="crew">
+        <div class="agent"><span class="agent-emoji">🧭</span><h3>Brief Agent</h3><p>Reads your words and sketches the trip brief — route, dates, budget, vibe.</p></div>
+        <div class="agent"><span class="agent-emoji">✈️</span><h3>Flight Scout</h3><p>Finds three flights and picks the one with the best value, not just the lowest fare.</p></div>
+        <div class="agent"><span class="agent-emoji">🏨</span><h3>Hotel Scout</h3><p>Matches stays to your vibe and the nightly budget your trip can carry.</p></div>
+        <div class="agent"><span class="agent-emoji">🗺️</span><h3>Itinerary Weaver</h3><p>Threads activities into days that respect your flight times — no 9am tours after a red-eye.</p></div>
+        <div class="agent"><span class="agent-emoji">💰</span><h3>Budget Guardian</h3><p>Adds it all up. Over budget? It swaps flights, hotels, and paid extras until it fits — or tells you honestly.</p></div>
+        <div class="agent"><span class="agent-emoji">🔍</span><h3>Plan Critic</h3><p>Proofreads the plan for clashes and overstuffed days before it reaches you.</p></div>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <h2>The world is waiting</h2>
+      <p class="gallery-sub">Postcards from the journal — every journey starts with a daydream.</p>
+      <div class="gallery-grid">
+        <figure>
+          <img src="/static/img/art-1.jpg" alt="A traveler in a mustard beanie pointing at a great globe, journal open, passport and boarding pass on the desk">
+          <figcaption>Plan · Dream · Explore · Repeat</figcaption>
+        </figure>
+        <figure>
+          <img src="/static/img/art-2.jpg" alt="A cartoon plane carrying two happy travelers around a globe dotted with the Eiffel Tower, Taj Mahal, pyramids and Sydney Opera House">
+          <figcaption>Together we explore</figcaption>
+        </figure>
+        <figure>
+          <img src="/static/img/art-3.jpg" alt="A globe encircled by landmarks of Paris, London, Rome and Sydney on a deep navy, starry background">
+          <figcaption>Journeys change you</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Holiday Planner AI with LangGraph — an open-source multi-agent travel planner · LangGraph + FastAPI ·
+       Flights &amp; hotels are simulated unless API keys are configured.</p>
+  </footer>
+
+  <script>
+    function fillSample(btn) {
+      document.getElementById('trip_request').value = btn.textContent.trim();
+      document.getElementById('trip_request').focus();
+    }
+  </script>
+</body>
+</html>

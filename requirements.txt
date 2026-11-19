@@ -1,0 +1,14 @@
+# Holiday Planner AI with LangGraph — pinned to the versions the test
+# suite and eval were verified against (Python 3.12).
+fastapi==0.165.0
+uvicorn==0.54.0
+jinja2==3.1.6
+langgraph==1.2.23
+langchain-core==1.8.3
+langchain-groq==1.2.1
+pydantic==2.14.4
+httpx==0.28.1
+python-multipart==0.0.34
+pytest==9.2.0
+# Optional, only for PostgreSQL persistence (DATABASE_URL):
+# psycopg[binary]
